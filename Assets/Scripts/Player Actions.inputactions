@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "name": "Player Actions",
+    "maps": [
+        {
+            "name": "Dice",
+            "id": "0ef6736a-0f24-4437-ad58-452f8977ab4d",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "2e0828c4-fd7f-45fc-badd-55a14ffbe83a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ced6ac83-acd8-41c8-b60b-f022c7cdfdc1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard Scheme",
+            "bindingGroup": "Keyboard Scheme",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
