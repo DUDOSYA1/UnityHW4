@@ -1,16 +1,25 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PointsCounter : MonoBehaviour
 {
-    [SerializeField] private CubeThrower[] dices;
+    public event Action<int> ScoreChanged;
 
-    private Rigidbody[] dicesRigidbody;
-    private int diceAmount;
+    private HashSet<GameObject> dices;
+    private HashSet<CubeThrower> dicesCT;
+    private HashSet<Rigidbody> dicesRigidbody;
+
     private int landedCounter;
     private bool shouldChange;
     private int score;
+
+    public int DiceAmount
+    {
+        get { return dices.Count; }
+        set { }
+    }
 
     public int Score
     {
@@ -20,21 +29,11 @@ public class PointsCounter : MonoBehaviour
 
     private void Start()
     {
-        if(dices.Length == 0)
-        {
-            Debug.LogError("Dices are not included in counter");
-        }
-
-        diceAmount = dices.Length;
         landedCounter = 0;
         shouldChange = false;
-        dicesRigidbody = new Rigidbody[diceAmount];
-
-        for(int i = 0; i < diceAmount; i++)
-        {
-            dices[i].InProcess = false;
-            dicesRigidbody[i] = dices[i].transform.GetComponent<Rigidbody>();
-        }
+        dices = new HashSet<GameObject>();
+        dicesRigidbody = new HashSet<Rigidbody>();
+        dicesCT = new HashSet<CubeThrower>();
     }
 
     private void FixedUpdate()
@@ -44,13 +43,13 @@ public class PointsCounter : MonoBehaviour
             return;
         }
 
-        if (shouldChange && landedCounter == diceAmount)
+        if (shouldChange && landedCounter == DiceAmount)
         {
             shouldChange = false;
             SetInProcess(false);
             var sum = 0;
 
-            foreach (var dice in dices)
+            foreach (var dice in dicesCT)
             {
                 var maxY = 0f;
                 var topSide = "";
@@ -62,7 +61,7 @@ public class PointsCounter : MonoBehaviour
                         topSide = currSide.name;
                         maxY = currSide.position.y;
                     }
-                    
+
                 }
                 switch (topSide)
                 {
@@ -76,11 +75,18 @@ public class PointsCounter : MonoBehaviour
             }
 
             score = sum;
+            ScoreChanged.Invoke(score);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!dices.Contains(collision.gameObject))
+        {
+            dices.Add(collision.gameObject);
+            dicesCT.Add(collision.gameObject.GetComponent<CubeThrower>());
+            dicesRigidbody.Add(collision.gameObject.GetComponent<Rigidbody>());
+        }
         landedCounter++;
         shouldChange = true;
         SetInProcess(true);
@@ -95,12 +101,16 @@ public class PointsCounter : MonoBehaviour
 
     private void SetInProcess(bool state)
     {
-        foreach (var dice in dices)
+        if(dicesCT.Count == 0)
+            return;
+        foreach (var dice in dicesCT)
             dice.InProcess = state;
     }
 
     private bool IsMoving()
     {
+        if(dicesRigidbody.Count == 0) 
+            return false;
         foreach (var dice in dicesRigidbody)
         {
             var velocity = dice.linearVelocity;
@@ -108,5 +118,15 @@ public class PointsCounter : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public void ClearDicesInfo()
+    {
+        if(dices!=null)
+            dices.Clear();
+        if(dicesCT!=null) 
+            dicesCT.Clear();
+        if(dicesRigidbody!=null) 
+            dicesRigidbody.Clear();
     }
 }

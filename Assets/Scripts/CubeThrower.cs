@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class CubeThrower : MonoBehaviour
 {
@@ -28,13 +30,17 @@ public class CubeThrower : MonoBehaviour
         if (!inProcess)
         {
             var dir = new Vector3(
-                Random.Range(-sideForceRange, sideForceRange),
-                Random.Range(minUpForceRange, maxUpForceRange),
-                Random.Range(-sideForceRange, sideForceRange));
+            UnityEngine.Random.Range(-sideForceRange, sideForceRange),
+            UnityEngine.Random.Range(minUpForceRange, maxUpForceRange),
+            UnityEngine.Random.Range(-sideForceRange, sideForceRange));
+
             var applyPos = new Vector3(
-                Random.Range(-torqueRange, torqueRange),
-                Random.Range(-torqueRange, torqueRange),
-                Random.Range(-torqueRange, torqueRange));
+                UnityEngine.Random.Range(-torqueRange, torqueRange),
+                UnityEngine.Random.Range(-torqueRange, torqueRange),
+                UnityEngine.Random.Range(-torqueRange, torqueRange));
+
+            Debug.Log(gameObject.name);
+            Debug.Log($"{dir.x} {dir.y} {dir.z}");
 
             rb.AddForceAtPosition(dir,applyPos, ForceMode.Impulse);
 
