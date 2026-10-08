@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class CubeThrower : MonoBehaviour
 {
-    [SerializeField] private InputActionReference throwAction;
     [SerializeField][Range(0,100)] private float minUpForceRange;
     [SerializeField][Range(1,100)] private float maxUpForceRange;
     [SerializeField][Range(0,10)] private float sideForceRange;
@@ -22,10 +21,9 @@ public class CubeThrower : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         if (rb == null)
             Debug.LogError("No Rigidbody on cube");
-        throwAction.action.started += ThrowCube;
     }    
 
-    private void ThrowCube(InputAction.CallbackContext obj)
+    public void ThrowCube()
     {
         if (!inProcess)
         {

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class UIScript : MonoBehaviour
+public class GetInfoUIScript : MonoBehaviour
 {
     [SerializeField] private PointsCounter pc;
 
@@ -19,6 +19,6 @@ public class UIScript : MonoBehaviour
 
     private void Update()
     {
-        text.text = "Score:\n" + pc.Score;
+        text.text = "Score: " + pc.Score;
     }
 }
