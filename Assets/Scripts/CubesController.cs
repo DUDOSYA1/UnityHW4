@@ -8,9 +8,10 @@ public class CubesController : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private GameObject startPosition;
     [SerializeField] private float step;
+    [SerializeField, Min(1)] private int cubesPerRow;
 
     private List<CubeThrower> cubes;
-    
+
     public List<CubeThrower> Cubes
     {
         get { return cubes; }
@@ -25,25 +26,33 @@ public class CubesController : MonoBehaviour
     public void SpawnCubes(int amount)
     {
         DespawnCubes();
-        for (int i = 1; i <= amount; i++)
+
+        var origin = startPosition.transform.position;
+
+        for (int i = 0; i < amount; i++)
         {
+            var col = i % cubesPerRow;
+            var row = i / cubesPerRow;
+
             var cube = Instantiate(prefab);
-            cube.transform.position = new Vector3(startPosition.transform.position.x + step*i, startPosition.transform.position.y, startPosition.transform.position.z);
-            cube.name = "dice" + i;
-            cube.GetComponent<CubeThrower>().InProcess = false;
-            cubes.Add(cube.GetComponent<CubeThrower>());
+            cube.transform.position = new Vector3(origin.x + step * col, origin.y, origin.z - step * row);
+            cube.name = "dice" + (i + 1);
+
+            var thrower = cube.GetComponent<CubeThrower>();
+            thrower.InProcess = false;
+            cubes.Add(thrower);
         }
     }
-    
+
     private void DespawnCubes()
     {
         foreach (var c in cubes)
         {
-            if (c != null) 
+            if (c != null)
                 Destroy(c.gameObject);
         }
         cubes.Clear();
-        if (pc != null) 
+        if (pc != null)
             pc.ClearDicesInfo();
     }
 }

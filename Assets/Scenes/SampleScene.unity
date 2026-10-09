@@ -1512,7 +1512,9 @@ MonoBehaviour:
   winField: {fileID: 929839461}
   drawField: {fileID: 1581991822}
   countField: {fileID: 796102800}
-  maxNumberOfCubes: 10
+  maxNumberOfCubes: 11
+  isRandomToggle: {fileID: 1263506352}
+  randDelay: 2
 --- !u!1 &590156392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1631,6 +1633,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UILogicScript
   sidePanel: {fileID: 776024666}
   setPanel: {fileID: 925741039}
+  winField: {fileID: 929839461}
+  drawField: {fileID: 1581991822}
+  countField: {fileID: 796102800}
+  throwBtn: {fileID: 898877699}
+  pc: {fileID: 2084218147}
 --- !u!1 &595118487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4822,6 +4829,7 @@ MonoBehaviour:
   prefab: {fileID: 8319920249256686812, guid: 1e85a390bbbac214e8189ac226f5852e, type: 3}
   startPosition: {fileID: 2000405744}
   step: 3
+  cubesPerRow: 5
 --- !u!4 &2000405746
 Transform:
   m_ObjectHideFlags: 0
@@ -4831,7 +4839,7 @@ Transform:
   m_GameObject: {fileID: 2000405744}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -244.4, y: 1, z: 65.09}
+  m_LocalPosition: {x: -244.4, y: 1, z: 66.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

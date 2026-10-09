@@ -6,6 +6,7 @@ using UnityEngine;
 public class PointsCounter : MonoBehaviour
 {
     public event Action<int> ScoreChanged;
+    public event Action ThrowStart;
 
     private HashSet<GameObject> dices;
     private HashSet<CubeThrower> dicesCT;
@@ -97,6 +98,7 @@ public class PointsCounter : MonoBehaviour
         landedCounter--;
         shouldChange = true;
         SetInProcess(true);
+        ThrowStart.Invoke();
     }
 
     private void SetInProcess(bool state)
