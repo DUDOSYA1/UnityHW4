@@ -2035,11 +2035,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e276448eaa3ae3143b840c83bf3e80a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CubeThrower
-  throwAction: {fileID: 6807935465796095641, guid: 1f46c641dcdf646448bb0b59a770f796, type: 3}
   minUpForceRange: 6
   maxUpForceRange: 7
   sideForceRange: 3
-  torqueRange: 0.1
+  torqueRange: 10
 --- !u!1 &8579298555679394974
 GameObject:
   m_ObjectHideFlags: 0
