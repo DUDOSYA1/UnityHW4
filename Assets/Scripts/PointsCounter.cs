@@ -128,5 +128,7 @@ public class PointsCounter : MonoBehaviour
             dicesCT.Clear();
         if(dicesRigidbody!=null) 
             dicesRigidbody.Clear();
+        landedCounter = 0;
+        shouldChange = false;
     }
 }

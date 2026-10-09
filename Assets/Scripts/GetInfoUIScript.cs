@@ -24,6 +24,10 @@ public class GetInfoUIScript : MonoBehaviour
         winField.onValueChanged.AddListener(x => OnWinChange(x));
         drawField.onValueChanged.AddListener(x => OnDrawChange(x));
         countField.onValueChanged.AddListener(x => OnCountChange(x));
+
+        OnWinChange(winField.text);
+        OnDrawChange(drawField.text);
+        OnCountChange(countField.text);
     }
 
     private void OnScoreChanged(int score)

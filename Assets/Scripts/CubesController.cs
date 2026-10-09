@@ -20,8 +20,6 @@ public class CubesController : MonoBehaviour
     private void Awake()
     {
         cubes = new List<CubeThrower>();
-
-        SpawnCubes(3);
     }
 
     public void SpawnCubes(int amount)
@@ -32,17 +30,20 @@ public class CubesController : MonoBehaviour
             var cube = Instantiate(prefab);
             cube.transform.position = new Vector3(startPosition.transform.position.x + step*i, startPosition.transform.position.y, startPosition.transform.position.z);
             cube.name = "dice" + i;
+            cube.GetComponent<CubeThrower>().InProcess = false;
             cubes.Add(cube.GetComponent<CubeThrower>());
         }
     }
     
     private void DespawnCubes()
     {
-        foreach(var c in cubes)
+        foreach (var c in cubes)
         {
-            Destroy(c.gameObject);
+            if (c != null) 
+                Destroy(c.gameObject);
         }
         cubes.Clear();
-        pc.ClearDicesInfo();
+        if (pc != null) 
+            pc.ClearDicesInfo();
     }
 }
